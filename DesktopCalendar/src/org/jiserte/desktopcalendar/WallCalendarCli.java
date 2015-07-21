@@ -84,20 +84,36 @@ public class WallCalendarCli {
 
     ////////////////////////////////////////////////////////////////////////////
     // Change windows wallpaper
-    Map<Object, Object> apiMapper = new HashMap<>();
-    apiMapper.put(com.sun.jna.Library.OPTION_TYPE_MAPPER,
-        W32APITypeMapper.UNICODE);
-    apiMapper.put(com.sun.jna.Library.OPTION_FUNCTION_MAPPER,
-        W32APIFunctionMapper.UNICODE);
+    if (DetectOperatingSystem.isWindows()) {
+      Map<Object, Object> apiMapper = new HashMap<>();
+      apiMapper.put(com.sun.jna.Library.OPTION_TYPE_MAPPER,
+          W32APITypeMapper.UNICODE);
+      apiMapper.put(com.sun.jna.Library.OPTION_FUNCTION_MAPPER,
+          W32APIFunctionMapper.UNICODE);
 
-    SystemParametersInfoCall libraryCaller = (SystemParametersInfoCall) Native
-        .loadLibrary("user32", SystemParametersInfoCall.class, apiMapper);
+      SystemParametersInfoCall libraryCaller = (SystemParametersInfoCall) Native
+          .loadLibrary("user32", SystemParametersInfoCall.class, apiMapper);
 
-    libraryCaller.SystemParametersInfo(
-        new UINT_PTR(SystemParametersInfoCall.SPI_SETDESKWALLPAPER),
-        new UINT_PTR(0), config.getWallpaper().getAbsolutePath(),
-        new UINT_PTR(SystemParametersInfoCall.SPIF_UPDATEINIFILE
-            | SystemParametersInfoCall.SPIF_SENDWININICHANGE));
+      libraryCaller.SystemParametersInfo(
+          new UINT_PTR(SystemParametersInfoCall.SPI_SETDESKWALLPAPER),
+          new UINT_PTR(0), config.getWallpaper().getAbsolutePath(),
+          new UINT_PTR(SystemParametersInfoCall.SPIF_UPDATEINIFILE
+              | SystemParametersInfoCall.SPIF_SENDWININICHANGE));
+    }
+    if (DetectOperatingSystem.isLinux()) {
+      try {
+        Process p = Runtime.getRuntime().exec(
+            "gsettings set org.gnome.desktop.background picture-uri file:/"
+                + config.getWallpaper().getAbsolutePath());
+        p.waitFor();
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
     ////////////////////////////////////////////////////////////////////////////
   }
 
