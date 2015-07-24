@@ -6,7 +6,7 @@ public class DetectOperatingSystem {
       .toLowerCase();
 
   public static boolean isWindows() {
-    return NameOS.contains("Win");
+    return NameOS.contains("win");
   }
   public static boolean isLinux() {
     return NameOS.contains("linux");
