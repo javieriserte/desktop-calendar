@@ -1,6 +1,7 @@
 package org.jiserte.desktopcalendar;
 
 import java.io.File;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -15,6 +16,11 @@ public class ConfigXmlParser {
     int height = 0;
     File baseImg = null;
     File wallpaperImg = null;
+    int left=10;
+    int top = 20;
+    int right = 10;
+    int bottom = 40;
+    float overlayPercentage = 0.5F;
     try {
       
       //////////////////////////////////////////////////////////////////////////
@@ -40,9 +46,25 @@ public class ConfigXmlParser {
 
       nList = doc.getElementsByTagName("wallpaper");
       wallpaperImg = new File(nList.item(0).getTextContent());
+
+      nList = doc.getElementsByTagName("left");
+      left = Integer.valueOf(nList.item(0).getTextContent());
+      
+      nList = doc.getElementsByTagName("right");
+      right = Integer.valueOf(nList.item(0).getTextContent());
+
+      nList = doc.getElementsByTagName("top");
+      top = Integer.valueOf(nList.item(0).getTextContent());
+
+      nList = doc.getElementsByTagName("bottom");
+      bottom = Integer.valueOf(nList.item(0).getTextContent());
+
+      nList = doc.getElementsByTagName("overlay");
+      overlayPercentage = Float.valueOf(nList.item(0).getTextContent());
       //////////////////////////////////////////////////////////////////////////
-   
-      return new SystemConfig(width, height, baseImg, wallpaperImg);
+
+      return new SystemConfig(width, height, baseImg, wallpaperImg, left ,right,
+          top,bottom,overlayPercentage);
    
     } catch (Exception e) {
       e.printStackTrace();

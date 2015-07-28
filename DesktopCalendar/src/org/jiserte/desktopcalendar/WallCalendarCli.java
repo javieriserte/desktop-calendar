@@ -1,6 +1,7 @@
 package org.jiserte.desktopcalendar;
 
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -68,9 +69,11 @@ public class WallCalendarCli {
 
     ////////////////////////////////////////////////////////////////////////////
     // Create the image
+    Insets insets = new Insets(config.getTop(), config.getLeft(),
+        config.getBottom(), config.getRight());
     BufferedImage image = calI.createWallPaper(
         new Dimension(config.getWidth(), config.getHeight()),
-        config.getBaseImg(), from, to, wc);
+        config.getBaseImg(), from, to, wc,insets, config.getOverlayPercentage());
         ////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////
@@ -103,14 +106,12 @@ public class WallCalendarCli {
     if (DetectOperatingSystem.isLinux()) {
       try {
         Process p = Runtime.getRuntime().exec(
-            "gsettings set org.gnome.desktop.background picture-uri file:/"
+            "gsettings set org.gnome.desktop.background picture-uri file://"
                 + config.getWallpaper().getAbsolutePath());
         p.waitFor();
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }
