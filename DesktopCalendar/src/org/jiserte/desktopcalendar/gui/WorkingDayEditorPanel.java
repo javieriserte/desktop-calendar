@@ -3,7 +3,6 @@ package org.jiserte.desktopcalendar.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -39,7 +38,7 @@ public class WorkingDayEditorPanel extends JPanel {
     c.fill = GridBagConstraints.BOTH;
     c.gridx=0;
     c.gridy=0;
-    this.add(new JLabel("Día:"),c);
+    this.add(new JLabel("DÃ­a:"),c);
     c.gridx=1;
     this.add(new JTextField(),c);
     c.gridx=2;
@@ -47,7 +46,7 @@ public class WorkingDayEditorPanel extends JPanel {
     c.gridx=3;
     this.add(new JTextField(),c);
     c.gridx=4;
-    this.add(new JLabel("Año:"),c);
+    this.add(new JLabel("AÃ±o:"),c);
     c.gridx=5;
     this.add(new JTextField(),c);
     
@@ -62,7 +61,7 @@ public class WorkingDayEditorPanel extends JPanel {
     
     c.gridy=2;
     c.gridx=0;
-    c.gridwidth=1;
+    c.gridwidth=2;
     this.add(new JLabel("Prioridad"),c);
     c.gridx=1;
     this.add(new JComboBox<Priority>(),c);

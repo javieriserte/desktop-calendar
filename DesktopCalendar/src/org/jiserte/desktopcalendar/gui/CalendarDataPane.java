@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.Calendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -12,6 +13,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+import org.jiserte.desktopcalendar.Priority;
 import org.jiserte.desktopcalendar.WorkingDay;
 
 public class CalendarDataPane extends JPanel {
@@ -52,13 +54,23 @@ public class CalendarDataPane extends JPanel {
     
     c.fill = GridBagConstraints.BOTH;
     c.gridx = 2;
-    JList<String> comp = new JList<String>();
+    JList<WorkingDay> comp = new JList<WorkingDay>();
     
-    DefaultListModel<String> model = new DefaultListModel<>();
+    DefaultListModel<WorkingDay> model = new DefaultListModel<>();
     comp.setModel(model);
-    model.addElement("HOLA");
-    model.addElement("Como");
-    model.addElement("Estas");
+    WorkingDay wd1 = new WorkingDay(Calendar.getInstance(), "Nada que hacer hoy", Priority.Low);
+    WorkingDay wd2 = new WorkingDay(Calendar.getInstance(), "Nada que hacer hoy", Priority.Mid); 
+    WorkingDay wd3 = new WorkingDay(Calendar.getInstance(), "Nada que hacer hoy", Priority.High); 
+
+//    model.addElement("HOLA");
+//    model.addElement("Como");
+//    model.addElement("Estas");
+    model.addElement(wd1);
+    model.addElement(wd2);
+    model.addElement(wd3);
+    
+    
+    comp.setCellRenderer(new WorkingDayCellRenderer());
     this.add(comp,c);
     
     c.gridy=1;
