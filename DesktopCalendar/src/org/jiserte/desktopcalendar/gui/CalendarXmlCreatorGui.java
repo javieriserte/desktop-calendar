@@ -75,6 +75,8 @@ public class CalendarXmlCreatorGui extends JFrame {
     this.mainTabbedpane.addTab("Calendar data", new CalendarDataPane());
     this.mainTabbedpane.addTab("Config data", new JButton("Config"));
     
+    
+    
   }
 
 }
