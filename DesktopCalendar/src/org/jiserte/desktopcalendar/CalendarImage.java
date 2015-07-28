@@ -107,7 +107,7 @@ public class CalendarImage {
             g.setColor(new Color(30, 30, 60));
             g.setStroke(new BasicStroke(1));
             g.drawRect(0, 0, wdTabWidth, wdTabHeight);
-            g.setColor(Color.darkGray);
+            g.setColor(Color.black);
             g.setFont(new Font("Verdana", 0, (int) (wdTabHeight*0.7)));
             g.drawString(
                 sdf.format(currentDay.getTime()) + " | "
@@ -119,7 +119,7 @@ public class CalendarImage {
                   wdTabWidth - wdTabHeight / 2, wdTabHeight / 4);
             }
             AlphaComposite ac = java.awt.AlphaComposite
-                .getInstance(AlphaComposite.SRC_OVER, 0.5F);
+                .getInstance(AlphaComposite.SRC_OVER, 0.15F);
             gi.setComposite(ac);
             gi.drawImage(dayTabImage, xDisp, yDisp, null);
           }
