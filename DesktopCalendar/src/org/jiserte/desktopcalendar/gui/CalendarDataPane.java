@@ -1,17 +1,18 @@
 package org.jiserte.desktopcalendar.gui;
 
-import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.util.Calendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import org.jiserte.desktopcalendar.Priority;
 import org.jiserte.desktopcalendar.WorkingDay;
@@ -69,6 +70,12 @@ public class CalendarDataPane extends JPanel {
     model.addElement(wd2);
     model.addElement(wd3);
     
+    
+    TitledBorder b1 = BorderFactory.createTitledBorder("Fechas");
+    Border b2 = BorderFactory.createLineBorder(Color.black);
+    Border b3 = BorderFactory.createEmptyBorder(5,5, 5, 5);
+    
+    comp.setBorder(BorderFactory.createCompoundBorder(b1, BorderFactory.createCompoundBorder(b2, b3)));
     
     comp.setCellRenderer(new WorkingDayCellRenderer());
     this.add(comp,c);

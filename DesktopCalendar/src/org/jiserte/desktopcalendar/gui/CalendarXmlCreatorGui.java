@@ -3,18 +3,14 @@ package org.jiserte.desktopcalendar.gui;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
-
-
-
 public class CalendarXmlCreatorGui extends JFrame {
-  private JTabbedPane mainTabbedpane;
+private JTabbedPane mainTabbedpane;
 
   /**
    * 
@@ -60,7 +56,6 @@ public class CalendarXmlCreatorGui extends JFrame {
             // Set System L&F
       this.createPanes();
         // Brings the main pane to screen
-
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -74,8 +69,6 @@ public class CalendarXmlCreatorGui extends JFrame {
     this.add(this.mainTabbedpane);
     this.mainTabbedpane.addTab("Calendar data", new CalendarDataPane());
     this.mainTabbedpane.addTab("Config data", new JButton("Config"));
-    
-    
     
   }
 
