@@ -10,8 +10,16 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 public class CalendarXmlCreatorGui extends JFrame {
-private JTabbedPane mainTabbedpane;
+  //////////////////////////////////////////////////////////////////////////////
+  // Components
+  private JTabbedPane mainTabbedpane;
+  private CalendarDataPane calendarDataPane;
+  //////////////////////////////////////////////////////////////////////////////
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Instance variables
+//  private List<WorkingDay> workingCalendr;
+  //////////////////////////////////////////////////////////////////////////////
   /**
    * 
    */
@@ -65,9 +73,10 @@ private JTabbedPane mainTabbedpane;
   private void createPanes() {
     
     this.mainTabbedpane = new MainPane();
-    
+    this.calendarDataPane = new CalendarDataPane();
+
     this.add(this.mainTabbedpane);
-    this.mainTabbedpane.addTab("Calendar data", new CalendarDataPane());
+    this.mainTabbedpane.addTab("Calendar data", calendarDataPane);
     this.mainTabbedpane.addTab("Config data", new JButton("Config"));
     
   }
