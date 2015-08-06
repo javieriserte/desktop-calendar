@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDateComponentFactory;
@@ -60,13 +62,14 @@ public class CalendarDataPane extends JPanel implements Observer{
   // instance variables
   WorkingCalendar calendar;
   private JList<WorkingDay> workingDayList;
+  private WorkingDayEditorPanel wdep;
   //////////////////////////////////////////////////////////////////////////////
   
   /**
    * 
    */
   private static final long serialVersionUID = 232850896722799109L;
-
+  
   public CalendarDataPane()  {
     super();
     
@@ -129,6 +132,7 @@ public class CalendarDataPane extends JPanel implements Observer{
     c.gridy=1;
     this.workingDayList = new JList<WorkingDay>();
     workingDayList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    workingDayList.addListSelectionListener(new WorkingDaySelectionListener());
     setStartingListModel();
     
     TitledBorder b1 = BorderFactory.createTitledBorder("Fechas");
@@ -141,7 +145,7 @@ public class CalendarDataPane extends JPanel implements Observer{
     
     c.gridy=2;
     c.gridx=2;
-    WorkingDayEditorPanel wdep = new WorkingDayEditorPanel();
+    wdep = new WorkingDayEditorPanel();
     wdep.observable.addObserver(this);
     this.add(wdep,c);
     
@@ -232,6 +236,16 @@ public class CalendarDataPane extends JPanel implements Observer{
         break;
       }
     }
+  }
+  public class WorkingDaySelectionListener implements ListSelectionListener {
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+      JList<WorkingDay> source = (JList<WorkingDay>) e.getSource();
+      CalendarDataPane.this.wdep.setEditingCurrentDay(source.getSelectedValue());
+    }
+    
   }
   //////////////////////////////////////////////////////////////////////////////
 

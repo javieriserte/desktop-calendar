@@ -28,7 +28,7 @@ public class WorkingDay {
 	public void setDate(Calendar date) {
 		this.date = date;
 	}
-	public String getTaks() {
+	public String getTask() {
 		return taks;
 	}
 	public void setTaks(String taks) {

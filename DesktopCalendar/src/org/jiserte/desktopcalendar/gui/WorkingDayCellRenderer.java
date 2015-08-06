@@ -35,7 +35,7 @@ public class WorkingDayCellRenderer implements ListCellRenderer<WorkingDay> {
     Border b3 = cellHasFocus ? BorderFactory.createDashedBorder(new Color(180, 190, 240),1f,6f,6f,false): BorderFactory.createEmptyBorder(1,1,1,1);
 
     cellPanel.setBorder(BorderFactory.createCompoundBorder(b2, BorderFactory.createCompoundBorder(b1, b3)));
-    JLabel textLabel = new JLabel(new SimpleDateFormat("dd/MM/YYYY").format(value.getDate().getTime()) + " | " + value.getTaks());
+    JLabel textLabel = new JLabel(new SimpleDateFormat("dd/MM/YYYY").format(value.getDate().getTime()) + " | " + value.getTask());
     
     BorderLayout mgr = new BorderLayout(10,10);
     cellPanel.setLayout(mgr);

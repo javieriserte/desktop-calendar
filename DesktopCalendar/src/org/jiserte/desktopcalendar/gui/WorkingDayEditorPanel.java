@@ -29,11 +29,18 @@ public class WorkingDayEditorPanel extends JPanel {
   public WorkingDay currentEditingWorkingDay;
   
   //////////////////////////////////////////////////////////////////////////////
-  //
+  // Components
+  private JDatePickerImpl datePickerFrom;
+  private JTextField taskTextField;
+  private JComboBox<Priority> priorityCmb;
+  private JButton setButton;
+  //////////////////////////////////////////////////////////////////////////////
   /**
    * 
    */
   private static final long serialVersionUID = 3578154599013206591L;
+  private JDateComponentFactory dateComponentFactory;
+
   
   public WorkingDayEditorPanel() {
     super();
@@ -47,7 +54,23 @@ public class WorkingDayEditorPanel extends JPanel {
   
   public void setEditingCurrentDay(WorkingDay workingDay) {
     this.currentEditingWorkingDay = workingDay;
+    ////////////////////////////////////////////////////////////////////////////
+    // Create a new date picker with the date corresponding to the working day
+    this.datePickerFrom = (JDatePickerImpl)dateComponentFactory
+        .createJDatePicker(workingDay.getDate().getTime());
+    ////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Modifiy the text of the taks
+    this.taskTextField.setText(workingDay.getTask());
+    ////////////////////////////////////////////////////////////////////////////
     
+    ////////////////////////////////////////////////////////////////////////////
+    // Set the correct value in the priority combo box 
+    this.priorityCmb.setSelectedItem(workingDay.getPriority());
+    ////////////////////////////////////////////////////////////////////////////
+    
+    this.updateUI();
   }
 
   private void createGUI() {
@@ -69,9 +92,9 @@ public class WorkingDayEditorPanel extends JPanel {
     this.add(new JLabel("Fecha:"),c);
     c.gridx=1;
     
-    JDateComponentFactory f = new JDateComponentFactory();
+    this.dateComponentFactory = new JDateComponentFactory();
 
-    JDatePickerImpl datePickerFrom = (JDatePickerImpl)f.createJDatePicker(Calendar.getInstance().getTime());
+    this.datePickerFrom = (JDatePickerImpl)dateComponentFactory.createJDatePicker(Calendar.getInstance().getTime());
     
     this.add(datePickerFrom,c);
     
@@ -80,7 +103,8 @@ public class WorkingDayEditorPanel extends JPanel {
     this.add(new JLabel("Tarea:"),c);
     c.gridx=1;
     c.gridwidth = 3;
-    JTextField taskTextField = new JTextField("Escribir la tarea");
+    
+    this.taskTextField = new JTextField("Escribir la tarea");
     
     this.add(taskTextField,c);
     
@@ -89,8 +113,9 @@ public class WorkingDayEditorPanel extends JPanel {
     c.gridwidth=1;
     this.add(new JLabel("Prioridad:"),c);
     c.gridx=1;
-    JComboBox<Priority> priorityCmb = new JComboBox<Priority>();
+    priorityCmb = new JComboBox<Priority>();
     priorityCmb.setRenderer(new PriorityCellRenderer());
+
     DefaultComboBoxModel<Priority> aModel = new DefaultComboBoxModel<>(
         new Priority[]{Priority.High, Priority.Mid, Priority.Low, Priority.None,
             Priority.InThePast});
@@ -100,7 +125,7 @@ public class WorkingDayEditorPanel extends JPanel {
     c.insets = new Insets(2,2,2,2);
     
     c.gridx= 3;
-    JButton setButton = new JButton("Setear!");
+    setButton = new JButton("Setear!");
     setButton.addActionListener(new setButtonActionListener());
     this.add(setButton,c );
     

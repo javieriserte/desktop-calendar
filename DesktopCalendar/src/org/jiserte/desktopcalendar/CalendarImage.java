@@ -101,7 +101,7 @@ public class CalendarImage {
             g.setFont(new Font("Verdana", 0, (int) (wdTabHeight*0.7)));
             g.drawString(
                 sdf.format(currentDay.getTime()) + " | "
-                    + currentWorkingDay.getTaks(),
+                    + currentWorkingDay.getTask(),
                 midHorizontalSpacer, wdTabHeight - 2 * midVerticalSmallSpacer);
             if (currentWorkingDay.getPriority() == Priority.InThePast) {
               g.setColor(new Color(230, 40, 60));
