@@ -1,11 +1,16 @@
-package org.jiserte.desktopcalendar;
+package org.jiserte.desktopcalendar.xmlio;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+
+import org.jiserte.desktopcalendar.data.Priority;
+import org.jiserte.desktopcalendar.data.WorkingCalendar;
+import org.jiserte.desktopcalendar.data.WorkingDay;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+
 import java.io.File;
 import java.util.Calendar;
  

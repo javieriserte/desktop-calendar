@@ -1,4 +1,4 @@
-package org.jiserte.desktopcalendar;
+package org.jiserte.desktopcalendar.syscalls;
 
 import com.sun.jna.platform.win32.WinDef.UINT_PTR;
 import com.sun.jna.win32.*;

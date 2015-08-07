@@ -11,6 +11,13 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.jiserte.desktopcalendar.data.SystemConfig;
+import org.jiserte.desktopcalendar.data.WorkingCalendar;
+import org.jiserte.desktopcalendar.syscalls.DetectOperatingSystem;
+import org.jiserte.desktopcalendar.syscalls.SystemParametersInfoCall;
+import org.jiserte.desktopcalendar.xmlio.ConfigXmlParser;
+import org.jiserte.desktopcalendar.xmlio.WorkingDayXmlParser;
+
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.WinDef.UINT_PTR;
 import com.sun.jna.win32.W32APIFunctionMapper;

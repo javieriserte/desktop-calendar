@@ -6,11 +6,11 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,10 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.jdatepicker.DateModel;
 import org.jdatepicker.JDateComponentFactory;
 import org.jdatepicker.impl.JDatePickerImpl;
-import org.jiserte.desktopcalendar.Priority;
-import org.jiserte.desktopcalendar.WorkingDay;
+import org.jiserte.desktopcalendar.data.Priority;
+import org.jiserte.desktopcalendar.data.WorkingDay;
 
 public class WorkingDayEditorPanel extends JPanel {
 
@@ -56,8 +57,9 @@ public class WorkingDayEditorPanel extends JPanel {
     this.currentEditingWorkingDay = workingDay;
     ////////////////////////////////////////////////////////////////////////////
     // Create a new date picker with the date corresponding to the working day
-    this.datePickerFrom = (JDatePickerImpl)dateComponentFactory
-        .createJDatePicker(workingDay.getDate().getTime());
+    @SuppressWarnings("unchecked")
+    DateModel<Date> model = (DateModel<Date>) this.datePickerFrom.getModel();
+    model.setValue(workingDay.getDate().getTime());
     ////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////
@@ -116,7 +118,7 @@ public class WorkingDayEditorPanel extends JPanel {
     priorityCmb = new JComboBox<Priority>();
     priorityCmb.setRenderer(new PriorityCellRenderer());
 
-    DefaultComboBoxModel<Priority> aModel = new DefaultComboBoxModel<>(
+    DefaultComboBoxModel<Priority> aModel = new DefaultComboBoxModel<Priority>(
         new Priority[]{Priority.High, Priority.Mid, Priority.Low, Priority.None,
             Priority.InThePast});
     
@@ -141,6 +143,36 @@ public class WorkingDayEditorPanel extends JPanel {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+      //////////////////////////////////////////////////////////////////////////
+      // Set the new day
+      DateModel<?> wdModel = WorkingDayEditorPanel.this.datePickerFrom.getModel();
+      
+      Date d = (Date) WorkingDayEditorPanel.this.datePickerFrom.getModel().getValue();
+      int day = wdModel.getDay();
+      int month = wdModel.getMonth();
+      int year = wdModel.getYear();
+      Calendar newDay = Calendar.getInstance();
+      newDay.setTimeInMillis(0);
+      newDay.set(Calendar.DAY_OF_MONTH, day);
+      newDay.set(Calendar.MONTH, month);
+      newDay.set(Calendar.YEAR, year);
+      WorkingDayEditorPanel.this.currentEditingWorkingDay.setDate(newDay);
+      System.out.println("Day:" + d);
+      //////////////////////////////////////////////////////////////////////////
+      
+      //////////////////////////////////////////////////////////////////////////
+      // Set new Task
+      String task = WorkingDayEditorPanel.this.taskTextField.getText();
+      WorkingDayEditorPanel.this.currentEditingWorkingDay.setTask(task);
+      //////////////////////////////////////////////////////////////////////////
+
+      //////////////////////////////////////////////////////////////////////////
+      // Set new Priority
+      Priority priority = (Priority) WorkingDayEditorPanel.this.priorityCmb.getSelectedItem();
+      WorkingDayEditorPanel.this.currentEditingWorkingDay.setPriority(priority);
+      //////////////////////////////////////////////////////////////////////////
+
       WorkingDayEditorPanel.this.observable.setChanged();
       WorkingDayEditorPanel.this.observable.notifyObservers();
     }

@@ -3,7 +3,6 @@ package org.jiserte.desktopcalendar.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.LayoutManager;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -12,8 +11,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import org.jiserte.desktopcalendar.Priority;
-import org.jiserte.desktopcalendar.PriorityColorMapFactory;
+import org.jiserte.desktopcalendar.data.Priority;
+import org.jiserte.desktopcalendar.data.PriorityColorMapFactory;
 
 public class PriorityCellRenderer extends JPanel implements
     ListCellRenderer<Priority> {

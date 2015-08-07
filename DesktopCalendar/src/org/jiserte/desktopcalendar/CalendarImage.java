@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Polygon;
 import java.awt.RenderingHints;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +17,11 @@ import java.util.Calendar;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+
+import org.jiserte.desktopcalendar.data.Priority;
+import org.jiserte.desktopcalendar.data.PriorityColorMapFactory;
+import org.jiserte.desktopcalendar.data.WorkingCalendar;
+import org.jiserte.desktopcalendar.data.WorkingDay;
 
 public class CalendarImage {
   public BufferedImage createWallPaper(Dimension dimension, File baseImg,

@@ -1,4 +1,4 @@
-package org.jiserte.desktopcalendar;
+package org.jiserte.desktopcalendar.data;
 
 import java.util.Calendar;
 
@@ -31,8 +31,8 @@ public class WorkingDay {
 	public String getTask() {
 		return taks;
 	}
-	public void setTaks(String taks) {
-		this.taks = taks;
+	public void setTask(String task) {
+		this.taks = task;
 	}
 	public Priority getPriority() {
 		return priority;

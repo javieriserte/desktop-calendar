@@ -1,4 +1,4 @@
-package org.jiserte.desktopcalendar;
+package org.jiserte.desktopcalendar.data;
 
 public enum Priority {
   High,

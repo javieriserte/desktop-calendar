@@ -1,4 +1,4 @@
-package org.jiserte.desktopcalendar;
+package org.jiserte.desktopcalendar.data;
 
 import java.util.Comparator;
 
