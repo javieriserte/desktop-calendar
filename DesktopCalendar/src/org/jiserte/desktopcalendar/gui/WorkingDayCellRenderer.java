@@ -25,6 +25,7 @@ public class WorkingDayCellRenderer implements ListCellRenderer<WorkingDay> {
       boolean isSelected, boolean cellHasFocus) {
     JPanel cellPanel = new JPanel();
 
+    //cellPanel.setBackground(new Color(255,255,255));    
     cellPanel.setOpaque(true);
     Map<Priority, Color> map = PriorityColorMapFactory.getDefaultMap();
 

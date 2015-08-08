@@ -1,5 +1,6 @@
 package org.jiserte.desktopcalendar.gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -119,14 +120,17 @@ public class CalendarDataPane extends JPanel implements Observer{
     c.gridx = 2;
     c.gridy=1;
     this.workingDayList = new JList<WorkingDay>();
+    this.workingDayList.setOpaque(false);
     workingDayList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     workingDayList.addListSelectionListener(new WorkingDaySelectionListener());
     this.setStartingCalendar();
     
     TitledBorder b1 = BorderFactory.createTitledBorder("Fechas");
-    Border b3 = BorderFactory.createEmptyBorder(5,5, 5, 5);
+    Border b2 = BorderFactory.createEmptyBorder(5,5, 5, 5);
+    Border b3 = BorderFactory.createLineBorder(Color.gray);
     
-    workingDayList.setBorder(BorderFactory.createCompoundBorder(b1,  b3));
+    workingDayList.setBorder(BorderFactory.createCompoundBorder(b1, 
+        BorderFactory.createCompoundBorder(b2, b3)));
     
     workingDayList.setCellRenderer(new WorkingDayCellRenderer());
     this.add(workingDayList,c);

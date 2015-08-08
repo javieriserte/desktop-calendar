@@ -2,7 +2,6 @@ package org.jiserte.desktopcalendar.gui;
 
 import java.awt.Dimension;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
@@ -15,6 +14,7 @@ public class CalendarXmlCreatorGui extends JFrame {
   private JTabbedPane mainTabbedpane;
   private CalendarDataPane calendarDataPane;
   //////////////////////////////////////////////////////////////////////////////
+  private ConfigDataPane configDataPane;
 
   //////////////////////////////////////////////////////////////////////////////
   // Instance variables
@@ -74,10 +74,11 @@ public class CalendarXmlCreatorGui extends JFrame {
     
     this.mainTabbedpane = new MainPane();
     this.calendarDataPane = new CalendarDataPane();
+    this.configDataPane = new ConfigDataPane();
 
     this.add(this.mainTabbedpane);
     this.mainTabbedpane.addTab("Calendar data", calendarDataPane);
-    this.mainTabbedpane.addTab("Config data", new JButton("Config"));
+    this.mainTabbedpane.addTab("Config data",  this.configDataPane);
     
   }
 
