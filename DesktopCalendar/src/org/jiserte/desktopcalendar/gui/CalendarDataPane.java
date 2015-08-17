@@ -321,6 +321,7 @@ public class CalendarDataPane extends JPanel implements Observer{
         newCalendar.set(Calendar.MILLISECOND, 0);
         WorkingDay newDay = new WorkingDay(newCalendar, "Ninguna Tarea Asignada", Priority.None);
         ((DefaultListModel<WorkingDay>) CalendarDataPane.this.workingDayList.getModel()).addElement(newDay);
+        CalendarDataPane.this.calendar.addWorkingDay(newDay);
         break;
         
       case SAVE_DATA:

@@ -86,7 +86,14 @@ public class WallCalendarCli {
     ////////////////////////////////////////////////////////////////////////////
     // Export image to file
     try {
-      ImageIO.write(image, "PNG", config.getWallpaper());
+      File outWPFile = config.getWallpaper();
+      String outWPFileName = outWPFile.getAbsolutePath(); 
+      String ext = outWPFileName.substring(outWPFileName.length() - 3, 
+          outWPFileName.length()).toUpperCase();
+      if (ext != "PNG" && ext != "JPG" ) {
+        ext = "JPG";
+      }
+      ImageIO.write(image, ext, config.getWallpaper());
     } catch (IOException e) {
       e.printStackTrace();
     }
