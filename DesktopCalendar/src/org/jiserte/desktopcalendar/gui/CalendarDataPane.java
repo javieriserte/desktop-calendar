@@ -22,6 +22,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -119,7 +120,9 @@ public class CalendarDataPane extends JPanel implements Observer{
     c.fill = GridBagConstraints.BOTH;
     c.gridx = 2;
     c.gridy=1;
+    
     this.workingDayList = new JList<WorkingDay>();
+    JScrollPane wdlScrollPane = new JScrollPane(this.workingDayList);
     this.workingDayList.setOpaque(false);
     workingDayList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     workingDayList.addListSelectionListener(new WorkingDaySelectionListener());
@@ -129,11 +132,11 @@ public class CalendarDataPane extends JPanel implements Observer{
     Border b2 = BorderFactory.createEmptyBorder(5,5, 5, 5);
     Border b3 = BorderFactory.createLineBorder(Color.gray);
     
-    workingDayList.setBorder(BorderFactory.createCompoundBorder(b1, 
+    wdlScrollPane.setBorder(BorderFactory.createCompoundBorder(b1, 
         BorderFactory.createCompoundBorder(b2, b3)));
     
     workingDayList.setCellRenderer(new WorkingDayCellRenderer());
-    this.add(workingDayList,c);
+    this.add(wdlScrollPane,c);
     
     c.gridy=2;
     c.gridx=2;
@@ -292,6 +295,14 @@ public class CalendarDataPane extends JPanel implements Observer{
     ////////////////////////////////////////////////////////////////////////////
   }
   
+  public void updateCalendarFromList() {
+    this.calendar.clearDates();
+    for (int i =0 ; i< this.workingDayList.getModel().getSize(); i++) {
+      this.calendar.addWorkingDay(this.workingDayList.getModel().
+          getElementAt(i)); 
+    }
+  }
+  
   //////////////////////////////////////////////////////////////////////////////
   // Auxiliary classes
   public class ButtonsActionListener implements ActionListener {
@@ -332,6 +343,7 @@ public class CalendarDataPane extends JPanel implements Observer{
         fcs.setFileFilter(new XmlFileFilter());
         fcs.showSaveDialog(CalendarDataPane.this);
         File outfile = fcs.getSelectedFile();
+        CalendarDataPane.this.updateCalendarFromList();
         if (outfile != null) {
           calendarWriter.write(calendar, outfile);
         }
@@ -387,5 +399,6 @@ public class CalendarDataPane extends JPanel implements Observer{
     
   }
   //////////////////////////////////////////////////////////////////////////////
+
 
 }

@@ -38,6 +38,10 @@ public class WorkingCalendar {
   public void setTo(Calendar to) {
     this.to = to;
   }
+  
+  public void clearDates() {
+    this.workingDays.clear();
+  }
 
   public void addWorkingDay(WorkingDay workingDay) {
     if (this.getWorkingDays()==null) {
