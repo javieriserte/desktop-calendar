@@ -54,12 +54,11 @@ public class CalendarImage {
     ////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////
-    // Check if current day is a week day
+    // Calculates Monday and Friday from current date.
     int firstWeekDay = from.get(Calendar.DAY_OF_WEEK);
     int lastWeekDay = to.get(Calendar.DAY_OF_WEEK);
-    if (firstWeekDay != Calendar.MONDAY || lastWeekDay != Calendar.FRIDAY) {
-      return null;
-    }
+    from.add(Calendar.DAY_OF_MONTH, Calendar.MONDAY - firstWeekDay);
+    to.add(Calendar.DAY_OF_MONTH, Calendar.FRIDAY - lastWeekDay);
     ////////////////////////////////////////////////////////////////////////////
     
     ////////////////////////////////////////////////////////////////////////////

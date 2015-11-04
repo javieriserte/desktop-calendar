@@ -68,10 +68,14 @@ public class WallCalendarCli {
     CalendarImage calI = new CalendarImage();
     Calendar from = Calendar.getInstance();
     from.setTimeInMillis(0);
-    from.set(2015, 6, 20);
+    from.set(wc.getFrom().get(Calendar.YEAR),
+             wc.getFrom().get(Calendar.MONTH),
+             wc.getFrom().get(Calendar.DAY_OF_MONTH));
     Calendar to = Calendar.getInstance();
     to.setTimeInMillis(0);
-    to.set(2015, 11, 18);
+    to.set(wc.getTo().get(Calendar.YEAR),
+           wc.getTo().get(Calendar.MONTH),
+           wc.getTo().get(Calendar.DAY_OF_MONTH));
     ////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////
@@ -81,7 +85,7 @@ public class WallCalendarCli {
     BufferedImage image = calI.createWallPaper(
         new Dimension(config.getWidth(), config.getHeight()),
         config.getBaseImg(), from, to, wc,insets, config.getOverlayPercentage());
-        ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////
     // Export image to file
