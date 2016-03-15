@@ -48,6 +48,7 @@ public class CalendarDataPane extends JPanel implements Observer{
   private static final String ADD_DATE = "ADD_DATE";
   private static final String SAVE_DATA = "SAVE_DATA";
   private static final String NEW_DATA = "NEW_DATA";
+  private static final String SAVE_AS_DATA = "SAVE_AS_DATA";
   /////////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////////////////////////////////////////////////////
@@ -57,6 +58,7 @@ public class CalendarDataPane extends JPanel implements Observer{
   private JButton saveXMLButton;
   private JButton addDayButton;
   private JButton newDataButton;
+  private JButton saveAsXMLButton;
   private JDatePickerImpl fromPicker;
   private JDatePickerImpl toPicker;
   //////////////////////////////////////////////////////////////////////////////
@@ -66,6 +68,7 @@ public class CalendarDataPane extends JPanel implements Observer{
   WorkingCalendar calendar;
   private JList<WorkingDay> workingDayList;
   private WorkingDayEditorPanel wdep;
+  private File currentFile;
   //////////////////////////////////////////////////////////////////////////////
   
   /**
@@ -160,8 +163,8 @@ public class CalendarDataPane extends JPanel implements Observer{
     GridBagLayout layout = new GridBagLayout();
     layout.columnWeights = new double[]{1};
     layout.columnWidths = new int[]{150};
-    layout.rowHeights = new int[]{20,20,20,20,0};
-    layout.rowWeights = new double[]{0,0,0,0,1};
+    layout.rowHeights = new int[]{20,20,20,20,20,0};
+    layout.rowWeights = new double[]{0,0,0,0,0,1};
     GridBagConstraints c = new GridBagConstraints();
     c.insets = new Insets(5, 5, 5, 5);
     buttonsPanel.setLayout(layout);
@@ -172,6 +175,10 @@ public class CalendarDataPane extends JPanel implements Observer{
     this.saveXMLButton = new JButton("Guardar XML");
     this.saveXMLButton.addActionListener(buttonsListener);
     this.saveXMLButton.setActionCommand(SAVE_DATA);
+    // Save as button
+    this.saveAsXMLButton = new JButton("Guardar XML como...");
+    this.saveAsXMLButton.addActionListener(buttonsListener);
+    this.saveAsXMLButton.setActionCommand(SAVE_AS_DATA);
     // Load Button
     this.loadDataButton = new JButton("Cargar XML");
     this.loadDataButton.addActionListener(buttonsListener);
@@ -197,6 +204,8 @@ public class CalendarDataPane extends JPanel implements Observer{
     c.gridy = 2;
     buttonsPanel.add(this.saveXMLButton,c);
     c.gridy = 3;
+    buttonsPanel.add(this.saveAsXMLButton,c);
+    c.gridy = 4;
     buttonsPanel.add(this.addDayButton,c);
     ////////////////////////////////////////////////////////////////////////////
     
@@ -240,6 +249,11 @@ public class CalendarDataPane extends JPanel implements Observer{
     day.add(Calendar.DAY_OF_MONTH, dayOffSet);
     return day;
   }
+
+  private void setCurrentFile(File file) {
+    this.currentFile=file;
+  }
+
   
   private void setWorkingCalendar(WorkingCalendar calendar) {
     
@@ -322,6 +336,7 @@ public class CalendarDataPane extends JPanel implements Observer{
         } else {
           WorkingCalendar cal = parser.read(file);
           CalendarDataPane.this.setWorkingCalendar(cal);
+          CalendarDataPane.this.setCurrentFile(file);
         }
         break;
       case ADD_DATE:
@@ -337,17 +352,26 @@ public class CalendarDataPane extends JPanel implements Observer{
         
       case SAVE_DATA:
         WorkingDayXmlWriter calendarWriter = new WorkingDayXmlWriter();
-        JFileChooser fcs = new JFileChooser(System.getProperty("user.home"));
-        fcs.setVisible(true);
-        fcs.setMultiSelectionEnabled(false);
-        fcs.setFileFilter(new XmlFileFilter());
-        fcs.showSaveDialog(CalendarDataPane.this);
-        File outfile = fcs.getSelectedFile();
+        File outfile = CalendarDataPane.this.currentFile;
         CalendarDataPane.this.updateCalendarFromList();
         if (outfile != null) {
           calendarWriter.write(calendar, outfile);
         }
         break;
+      case SAVE_AS_DATA:
+        WorkingDayXmlWriter calendarWriter2 = new WorkingDayXmlWriter();
+        JFileChooser fcs2 = new JFileChooser(System.getProperty("user.home"));
+        fcs2.setVisible(true);
+        fcs2.setMultiSelectionEnabled(false);
+        fcs2.setFileFilter(new XmlFileFilter());
+        fcs2.showSaveDialog(CalendarDataPane.this);
+        File outfile2 = fcs2.getSelectedFile();
+        CalendarDataPane.this.updateCalendarFromList();
+        if (outfile2 != null) {
+          calendarWriter2.write(calendar, outfile2);
+        }
+        break;
+
       case NEW_DATA:
         CalendarDataPane.this.setStartingCalendar();
         break;
